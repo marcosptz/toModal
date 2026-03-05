@@ -1,11 +1,3 @@
-Com certeza! Analisei o código da sua classe `Modal.js` e preparei uma documentação robusta e profissional para o seu projeto **toModal**.
-
-Assim como fizemos na biblioteca anterior, foquei em destacar a facilidade de uso e a flexibilidade que a sua biblioteca oferece, especialmente a integração com o Bootstrap e a manipulação dinâmica de estilos.
-
-Aqui está a estrutura para o seu `README.md`:
-
----
-
 # 📦 toModal (JS Library)
 
 Uma biblioteca JavaScript leve e flexível para criação e gerenciamento de modais dinâmicas. Projetada para ser simples de implementar, ela se integra perfeitamente ao **Bootstrap** e permite total controle sobre estilos, conteúdos e comportamentos de forma programática.
@@ -130,9 +122,3 @@ const acao = confirmacao.callback(() => {
 ## 🔗 Link do Projeto
 
 Veja o código fonte e contribua em: [https://github.com/marcosptz/toModal](https://github.com/marcosptz/toModal)
-
----
-
-**Dica para o GitHub:** Como sua classe usa muitos seletores específicos do Bootstrap (como `.modal-header`, `.modal-body`), seria legal adicionar no seu repositório um pequeno arquivo `index.html` de exemplo com a estrutura que a modal espera, ou garantir que a classe crie essa estrutura dinamicamente se ela não existir.
-
-O que achou dessa documentação? Reflete bem o poder da sua `toModal`!
