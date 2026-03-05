@@ -37,44 +37,47 @@ class Modal {
   constructor(id_modal, select_modal = false) {
     this.id_modal = id_modal;
     this.select_modal = select_modal;
-    this.codigo_random =
-      "modal_" +
-      btoa((new Date().getTime() / 1000) * Math.random()).slice(0, 8);
+    this.codigo_random = "modal_" + btoa((new Date().getTime() / 1000) * Math.random()).slice(0, 8);
+
     // Se o id_modal não for passado nada então cria um id randomicamente
     if (typeof id_modal == "undefined") this.id_modal = this.codigo_random;
 
-    // Executando o método createHTML() no momento em que a classe é instanciada
-    this.createHTML();
+    // Verifica se a estrutura da modal já existe, se não, cria dinamicamente
+    if (!document.querySelector(`#${this.id_modal}`)) {
+      // Executando o método createHTML() no momento em que a classe é instanciada
+      this.createHTML();
+    }
+    this.modal = document.querySelector(`#${this.id_modal}`);
+
+    // Inicializando a instância do Bootstrap Modal para controlar a exibição da modal
+    this.bsModal = new bootstrap.Modal(this.modal);
   }
 
   // Método que cria o HTML da modal
   createHTML = () => {
     // HTML base da modal
-    let html = `<div class="modal fade" id="${this.id_modal}" tabindex="1" role="dialog">
-                  <div class="modal-dialog">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title"></h4>
-                      </div>
-                      <div hidden class="modal-hidden">
-                        <input hidden class="form-control" type="text" id="modal_get_value" name="modal_get_value" value="0">
-                      </div>
-                      <div class="modal-body modal-dynamic">
-                      </div>
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-default" id="btn_hide" data-dismiss="modal">Fechar</button>
-                        <button type="button" class="btn btn-default" id="btn_action" >Continuar<span></span></button>
-                      </div>
-                    </div>
-                  </div>
-                </div>`;
+    const modalHTML = `<div class="modal fade" id="${this.id_modal}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modal_title" aria-hidden="true">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h1 class="modal-title fs-5" id="modal_title">Modal title</h1>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div hidden class="modal-hidden">
+                              <input hidden class="form-control" type="text" id="modal_get_value" name="modal_get_value" value="0">
+                            </div>
+                            <div class="modal-body">
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" id="btn_close" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                              <button type="button" id="btn_action" class="btn btn-primary">Save changes</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>`;
 
     if (!this.select_modal) {
-      document.getElementById("modal_dynamic").innerHTML = html;
-      html = document.getElementById(this.id_modal);
-      document.querySelector("body").append(html);
-      this.modal = document.getElementById(this.id_modal);
+      document.body.insertAdjacentHTML('beforeend', modalHTML);
     } else {
       this.id_modal = this.select_modal;
       this.modal = document.getElementById(this.select_modal);
@@ -130,30 +133,26 @@ class Modal {
     };
 
     if (typeof this.options == "string") {
-      if (
-        typeof this.modal.querySelector(".modal-header").classList[1] ==
-        "undefined"
-      )
-        this.modal.querySelector(".modal-header").classList.add(this.options);
-      else
+      if (typeof this.modal.querySelector(".modal-dialog").classList[1] == "undefined") {
+        this.modal.querySelector(".modal-dialog").classList.add(this.options);
+      } else {
         this.modal
-          .querySelector(".modal-header")
+          .querySelector(".modal-dialog")
           .classList.replace(
-            this.modal.querySelector(".modal-header").classList[1],
+            this.modal.querySelector(".modal-dialog").classList[1],
             this.options
           );
-      if (
-        typeof this.modal.querySelector("#btn_action").classList[1] ==
-        "undefined"
-      )
-        this.modal.querySelector("#btn_action").classList.add(this.options);
-      else
-        this.modal
-          .querySelector("#btn_action")
-          .classList.replace(
-            this.modal.querySelector("#btn_action").classList[1],
-            `btn-${this.obj_btn[this.options]}`
-          );
+      }
+      // if (typeof this.modal.querySelector("#btn_action").classList[1] == "undefined") {
+      //   this.modal.querySelector("#btn_action").classList.add(this.options);
+      // } else {
+      //   this.modal
+      //     .querySelector("#btn_action")
+      //     .classList.replace(
+      //       this.modal.querySelector("#btn_action").classList[1],
+      //       `btn-${this.obj_btn[this.options]}`
+      //     );
+      // }
     }
     if (typeof this.options.color != "undefined") {
       if (
@@ -211,11 +210,12 @@ class Modal {
     }
     this.modal.querySelector(".modal-title").innerHTML = this.title;
     this.modal.querySelector(".modal-body").innerHTML = this.body;
-    $(`#${this.id_modal}`).modal("show");
+    // Abre a modal usando a instância do Bootstrap
+    this.bsModal.show();
   };
   // Método que fecha a modal
   hide = () => {
-    $(`#${this.id_modal}`).modal("hide");
+    this.bsModal.hide();
   };
   width = (width) => {
     this.setWidth = width;
@@ -258,6 +258,12 @@ class Modal {
     this.element = element;
     this.name_class = name_class;
     this.modal.querySelector(element).classList.add(this.name_class);
+  };
+  // Adiciona uma lista de classes
+  addclassList = (element, name_class) => {
+    this.element = element;
+    this.name_class = name_class;
+    this.modal.querySelector(`.${element}`).classList = `${element} ${this.name_class}`;
   };
   // Remove uma classe
   removeClass = (element, name_class) => {
@@ -348,14 +354,9 @@ class Modal {
   styleObj = (styles_obj) => {
     this.styles_obj = styles_obj;
     for (let el in this.styles_obj) {
-      // console.log('el -', this.styles_obj[el])
       for (let prop in this.styles_obj[el]) {
-        // console.log('pro -', prop);
-        // console.log('style -', this.styles_obj[el][prop]);
-        this.modal.querySelector(`${el}`).style[prop] =
-          this.styles_obj[el][prop];
+        this.modal.querySelector(`${el}`).style[prop] = this.styles_obj[el][prop];
       }
-      // modal.querySelector(`${this.element_class}`).style[prop] = this.styles[prop];
     }
   };
   // Remove propriedades CSS
@@ -375,11 +376,10 @@ class Modal {
   // Seta um valor para o campo escondido
   setValue = (modal_value) => {
     this.modal.querySelector("#modal_get_value").value = modal_value;
-    console.log("modal_get_value -", modal_get_value);
   };
   // Pega o valor do campo escondido
   getValue = () => {
-    let modal_get_value = modal.querySelector("#modal_get_value").value;
+    let modal_get_value = this.modal.querySelector("#modal_get_value").value;
     return modal_get_value;
   };
 }

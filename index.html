@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Exemplo toModal</title>
+        
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+        
+        <style>
+            body {
+                background-color: #f4f4f9;
+                padding: 50px;
+                text-align: center;
+            }
+            .container-demo {
+                background: white;
+                padding: 30px;
+                border-radius: 8px;
+                box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            }
+            .btn-custom {
+                margin: 5px;
+            }
+        </style>
+    </head>
+    <body>
+
+        <div class="container container-demo">
+            <h1 class="mb-4">Demonstração da Biblioteca toModal</h1>
+            <p class="text-muted">Clique nos botões abaixo para testar os diferentes métodos da classe.</p>
+            
+            <div class="d-flex justify-content-center flex-wrap">
+                <button class="btn btn-primary btn-custom" onclick="abrirModalSimples()">Modal Simples</button>
+                <button class="btn btn-success btn-custom" onclick="abrirModalGrande()">Modal Grande (LG)</button>
+                <button class="btn btn-warning btn-custom" onclick="abrirModalEstilizada()">Modal com Estilo Dinâmico</button>
+                <button class="btn btn-warning btn-custom" onclick="abrirModalTemporizador()">Modal de confirmação com temporizador</button>
+                <button class="btn btn-danger btn-custom" onclick="abrirModalConfirmacao()">Modal de Confirmação (Callback)</button>
+            </div>
+        </div>
+
+        <script src="Modal.js"></script>
+
+        <script>
+            // 1. Exemplo de Modal Simples
+            function abrirModalSimples() {
+                const minhaModal = new Modal();
+                minhaModal.show('Aviso', 'Esta é uma modal simples inicializada via toModal!');
+            }
+
+            // 2. Exemplo de Modal Grande com HTML no corpo
+            function abrirModalGrande() {
+                // Inicializa a classe
+                const minhaModal = new Modal();
+                const conteudo = `
+                    <div class="text-center">
+                        <img src="https://via.placeholder.com/150" class="mb-3" alt="Sucesso">
+                        <h4>Dados carregados com sucesso!</h4>
+                        <p>Você pode inserir qualquer estrutura HTML aqui dentro.</p>
+                    </div>
+                `;
+
+                // Adiccina classes selecionando um elemento específico da modal
+                minhaModal.addclassList('modal-header', 'bg-danger text-white');
+                // Chama o método show passando o conteúdo HTML e a classe para o tamanho da modal
+                minhaModal.show('Visualização de Dados', conteudo, 'modal-lg');
+            }
+
+            // 3. Exemplo com Callback e Valor Escondido (ID)
+            function abrirModalConfirmacao() {
+                // Inicializa a classe
+                const minhaModal = new Modal();
+                const idItem = 123;
+                minhaModal.setValue(idItem); // Armazena o ID no campo escondido
+                
+                // Adiccina classes selecionando um elemento específico da modal
+                minhaModal.addclassList('modal-header', 'bg-danger text-white');
+                // Chama o método show passando o conteúdo HTML e a classe para o tamanho da modal
+                minhaModal.show('Confirmar Exclusão', 'Deseja realmente excluir o item ID: ' + idItem + '?', 'modal-sm');
+                
+                // Define o que acontece ao clicar (Exemplo de uso do método callback)
+                // Nota: No seu Modal.js, você pode atrelar esse callback a um botão dentro do HTML da modal
+                console.log("Valor recuperado da modal:", minhaModal.getValue());
+            }
+
+            // 4. Exemplo usando styleObj para mudar o CSS via JS
+            function abrirModalEstilizada() {
+                // Inicializa a classe
+                const minhaModal = new Modal();
+                // Adiccina classes selecionando um elemento específico da modal
+                minhaModal.addclassList('modal-header', 'bg-warning text-dark');
+                // Chama o método show passando o conteúdo HTML e a classe para o tamanho da modal
+                minhaModal.show('Customização Total', 'Esta modal teve seu CSS alterado via método styleObj.', 'modal-xl');
+                
+                // Altera o cabeçalho e o título dinamicamente
+                minhaModal.styleObj({
+                    '.modal-header': {
+                        'border-bottom': '5px solid #000',
+                        'background-color': '#ffc107'
+                    },
+                    '#modal_title': {
+                        'text-transform': 'uppercase',
+                        'letter-spacing': '2px'
+                    }
+                });
+            }
+
+            // 5. Exemplo usando temporizador no botão
+            function abrirModalTemporizador() {
+                // Inicializa a classe
+                const minhaModal = new Modal();
+                // Ativando o temporizador do botão
+                minhaModal.button(1, {type_class: 'warning', text: 'Sim', timer_msg: '', timer: true})
+                // Adiccina classes selecionando um elemento específico da modal
+                minhaModal.addclassList('modal-header', 'bg-warning text-dark');
+                // Chama o método show passando o conteúdo HTML e a classe para o tamanho da modal
+                setTimeout(() => minhaModal.show('Confirme a ação', 'Deseja realmente executar esta ação?'), 800);
+            }
+        </script>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    </body>
+</html>
