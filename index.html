@@ -61,7 +61,7 @@
                 `;
 
                 // Adiccina classes selecionando um elemento específico da modal
-                minhaModal.addclassList('modal-header', 'bg-danger text-white');
+                minhaModal.addclassList('.modal-header', 'bg-danger text-white');
                 // Chama o método show passando o conteúdo HTML e a classe para o tamanho da modal
                 minhaModal.show('Visualização de Dados', conteudo, 'modal-lg');
             }
@@ -74,7 +74,7 @@
                 minhaModal.setValue(idItem); // Armazena o ID no campo escondido
                 
                 // Adiccina classes selecionando um elemento específico da modal
-                minhaModal.addclassList('modal-header', 'bg-danger text-white');
+                minhaModal.addclassList('.modal-header', 'bg-danger text-white');
                 // Chama o método show passando o conteúdo HTML e a classe para o tamanho da modal
                 minhaModal.show('Confirmar Exclusão', 'Deseja realmente excluir o item ID: ' + idItem + '?', 'modal-sm');
                 
@@ -88,7 +88,7 @@
                 // Inicializa a classe
                 const minhaModal = new ToModal();
                 // Adiccina classes selecionando um elemento específico da modal
-                minhaModal.addclassList('modal-header', 'bg-warning text-dark');
+                minhaModal.addclassList('.modal-header', 'bg-warning text-dark');
                 // Chama o método show passando o conteúdo HTML e a classe para o tamanho da modal
                 minhaModal.show('Customização Total', 'Esta modal teve seu CSS alterado via método styleObj.', 'modal-xl');
                 
@@ -112,7 +112,7 @@
                 // Ativando o temporizador do botão
                 minhaModal.button(1, {type_class: 'warning', text: 'Sim', timer_msg: '', timer: true})
                 // Adiccina classes selecionando um elemento específico da modal
-                minhaModal.addclassList('modal-header', 'bg-warning text-dark');
+                minhaModal.addclassList('.modal-header', 'bg-warning text-dark');
                 // Chama o método show passando o conteúdo HTML e a classe para o tamanho da modal
                 setTimeout(() => minhaModal.show('Confirme a ação', 'Deseja realmente executar esta ação?'), 800);
             }
