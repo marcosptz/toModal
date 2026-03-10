@@ -33,7 +33,7 @@
  * - **setValue:** Esse método seta um valor para o campo escondido da modal, recebe o paramêtro *modal_value* que é obrigatório e pode ser string ou number;
  * - **getValue:** Esse método retorna o valor do campo escondido da modal, não recebe nenhum paramêtro.
  */
-class Modal {
+class ToModal {
   constructor(id_modal, select_modal = false) {
     this.id_modal = id_modal;
     this.select_modal = select_modal;

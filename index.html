@@ -39,19 +39,19 @@
             </div>
         </div>
 
-        <script src="Modal.js"></script>
+        <script src="toModal.js"></script>
 
         <script>
             // 1. Exemplo de Modal Simples
             function abrirModalSimples() {
-                const minhaModal = new Modal();
+                const minhaModal = new ToModal();
                 minhaModal.show('Aviso', 'Esta é uma modal simples inicializada via toModal!');
             }
 
             // 2. Exemplo de Modal Grande com HTML no corpo
             function abrirModalGrande() {
                 // Inicializa a classe
-                const minhaModal = new Modal();
+                const minhaModal = new ToModal();
                 const conteudo = `
                     <div class="text-center">
                         <img src="https://via.placeholder.com/150" class="mb-3" alt="Sucesso">
@@ -69,7 +69,7 @@
             // 3. Exemplo com Callback e Valor Escondido (ID)
             function abrirModalConfirmacao() {
                 // Inicializa a classe
-                const minhaModal = new Modal();
+                const minhaModal = new ToModal();
                 const idItem = 123;
                 minhaModal.setValue(idItem); // Armazena o ID no campo escondido
                 
@@ -86,7 +86,7 @@
             // 4. Exemplo usando styleObj para mudar o CSS via JS
             function abrirModalEstilizada() {
                 // Inicializa a classe
-                const minhaModal = new Modal();
+                const minhaModal = new ToModal();
                 // Adiccina classes selecionando um elemento específico da modal
                 minhaModal.addclassList('modal-header', 'bg-warning text-dark');
                 // Chama o método show passando o conteúdo HTML e a classe para o tamanho da modal
@@ -108,7 +108,7 @@
             // 5. Exemplo usando temporizador no botão
             function abrirModalTemporizador() {
                 // Inicializa a classe
-                const minhaModal = new Modal();
+                const minhaModal = new ToModal();
                 // Ativando o temporizador do botão
                 minhaModal.button(1, {type_class: 'warning', text: 'Sim', timer_msg: '', timer: true})
                 // Adiccina classes selecionando um elemento específico da modal

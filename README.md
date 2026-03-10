@@ -19,7 +19,7 @@ Uma biblioteca JavaScript leve e flexível para criação e gerenciamento de mod
 Basta instanciar a classe em seu arquivo JavaScript:
 
 ```javascript
-const minhaModal = new Modal();
+const minhaModal = new ToModal();
 
 ```
 
@@ -97,7 +97,7 @@ minhaModal.styleObj({
 Você pode usar a biblioteca para fluxos de confirmação de forma muito simples:
 
 ```javascript
-const confirmacao = new Modal();
+const confirmacao = new ToModal();
 
 confirmacao.show('bg-danger', 'sm', 'Excluir Item', 'Tem certeza que deseja excluir?');
 
