@@ -263,7 +263,7 @@ class ToModal {
   addclassList = (element, name_class) => {
     this.element = element;
     this.name_class = name_class;
-    this.modal.querySelector(`.${element}`).classList = `${element} ${this.name_class}`;
+    this.modal.querySelector(`${element}`).classList = `${element.replace(/[#.]/, '')} ${this.name_class}`;
   };
   // Remove uma classe
   removeClass = (element, name_class) => {
