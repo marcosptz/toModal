@@ -311,6 +311,14 @@ class ToModal {
       this.buttons[type].setAttribute("data-dismiss", "modal"); // Ativa o atributo data-dismiss que fecha a modal
     if (typeof this.config.dismiss != "undefined" && !this.config.dismiss)
       this.buttons[type].removeAttribute("data-dismiss"); // Desativa o atributo data-dismiss que fecha a modal
+    // Se houver um evento e uma função definidas
+    if (typeof this.config.event != "undefined" && typeof this.config.event_function == 'function') {
+      // Variável que recebe a função do evento no botão, caso seja definido algum evento
+      let event_function = this.config.event_function;
+      // Evento no botão escolhido
+      this.buttons[type].addEventListener(this.config.event, function(e) {event_function()});
+    }
+    // Ativando o contador
     if (typeof this.config.timer != "undefined" && this.config.timer) {
       // Função que ativa o contador
       this.timer_interval = 6;
